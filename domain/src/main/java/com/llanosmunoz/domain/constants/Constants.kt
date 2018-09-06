@@ -23,7 +23,7 @@ class Constants {
             BuildType.RELEASE -> "orange_bank_ct"
         }
 
-        const val DATE_API_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss.zzz'Z'"
+        const val DATE_API_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     }
 }
 
