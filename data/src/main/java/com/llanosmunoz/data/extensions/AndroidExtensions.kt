@@ -1,6 +1,8 @@
-package com.llanosmunoz.data
+package com.llanosmunoz.data.extensions
 
 import android.util.Log
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * AndroidExtensions
@@ -36,3 +38,17 @@ fun Any.debug(text: String) {
 fun Any.debug(text: String, exception: Exception) {
     Log.d(this::class.java.simpleName, text, exception)
 }
+
+
+/**
+ * Date
+ * */
+fun String.toDate(format: String): Date? {
+    return try {
+        SimpleDateFormat(format).parse(this)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+fun Date.toFormattedString(format: String): String = SimpleDateFormat(format).format(this)

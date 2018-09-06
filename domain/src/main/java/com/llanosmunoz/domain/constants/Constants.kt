@@ -11,6 +11,8 @@ class Constants {
 
         val DEFAULT_INT: Int = 0
 
+        val DEFAULT_DOUBLE: Double = 0.0
+
         fun preferencesName(buildType: BuildType): String = when (buildType) {
             BuildType.DEBUG -> "orange_bank_ct_debug"
             BuildType.RELEASE -> "orange_bank_ct"
@@ -20,6 +22,9 @@ class Constants {
             BuildType.DEBUG -> "orange_bank_ct_debug"
             BuildType.RELEASE -> "orange_bank_ct"
         }
+
+        const val DATE_API_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        const val DATE_VIEW_FORMAT: String = "dd-MM-yyyy HH:mm:ss"
     }
 }
 
