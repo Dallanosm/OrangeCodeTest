@@ -1,11 +1,13 @@
 package com.llanosmunoz.orangebankct.view.activity
 
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.provider
+import com.llanosmunoz.domain.constants.Constants.Companion.DEFAULT_DOUBLE
 import com.llanosmunoz.domain.constants.Constants.Companion.EMPTY_STRING
 import com.llanosmunoz.orangebankct.R
 import com.llanosmunoz.orangebankct.extension.hideMe
@@ -58,6 +60,12 @@ class TransactionsActivity : RootActivity<TransactionsPresenter.View>(), Transac
             lastTransactionDescription.text = last.description
         } else {
             lastTransactionDescription.hideMe()
+        }
+        lastTransactionTotal.text = last.total
+        if (last.totalValue <= DEFAULT_DOUBLE) {
+            lastTransactionTotal.setTextColor(ContextCompat.getColor(this,R.color.red))
+        } else {
+            lastTransactionTotal.setTextColor(ContextCompat.getColor(this,R.color.green))
         }
         lastTransactionAmount.text = last.amount
         lastTransactionFee.text = last.fee

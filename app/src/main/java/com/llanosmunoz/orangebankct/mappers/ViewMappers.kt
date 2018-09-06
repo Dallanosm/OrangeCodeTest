@@ -15,4 +15,6 @@ fun Transaction.toView(): TransactionView = TransactionView(
         date = date?.toFormattedString(DATE_VIEW_FORMAT) ?: EMPTY_STRING,
         amount = "$amount €",
         fee = "$fee €",
+        total = "${amount + fee} €",
+        totalValue = amount + fee,
         description = description)

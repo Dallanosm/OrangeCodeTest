@@ -5,4 +5,5 @@
     <string name="amount">Amount:</string>
     <string name="fee">Fee:</string>
     <string name="empty_transactions">There are not any transaction</string>
+    <string name="total">Total:</string>
 </resources>

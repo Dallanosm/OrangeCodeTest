@@ -1,11 +1,13 @@
 package com.llanosmunoz.orangebankct.view.adapter
 
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.llanosmunoz.domain.constants.Constants
 import com.llanosmunoz.orangebankct.R
 import com.llanosmunoz.orangebankct.extension.hideMe
 import com.llanosmunoz.orangebankct.extension.showMe
 import com.llanosmunoz.orangebankct.models.TransactionView
+import kotlinx.android.synthetic.main.activity_transactions.*
 import kotlinx.android.synthetic.main.item_transaction.view.*
 
 /**
@@ -30,6 +32,13 @@ class TransactionsAdapter(onItemClickListener: (TransactionView) -> Unit)
                 itemView.transactionDescription.text = model.description
             }else{
                 itemView.transactionDescription.hideMe()
+            }
+
+            itemView.transactionTotal.text = model.total
+            if (model.totalValue <= Constants.DEFAULT_DOUBLE) {
+                itemView.transactionTotal.setTextColor(ContextCompat.getColor(itemView.context,R.color.red))
+            } else {
+                itemView.transactionTotal.setTextColor(ContextCompat.getColor(itemView.context,R.color.green))
             }
         }
     }

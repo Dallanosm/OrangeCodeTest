@@ -8,4 +8,6 @@ data class TransactionView(
         val date: String,
         val amount: String,
         val fee: String,
+        val total: String,
+        val totalValue: Double,
         val description: String)
