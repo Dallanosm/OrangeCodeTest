@@ -45,7 +45,13 @@ class TransactionsActivity : RootActivity<TransactionsPresenter.View>(), Transac
     }
 
     override fun showTransactions(transactions: List<TransactionView>) {
-        transactionAdapter.addAll(transactions.toMutableList())
+        val last = transactions.first()
+        lastTransactionId.text = last.id
+        lastTransactionDate.text = last.date
+        lastTransactionDescription.text = last.description
+        lastTransactionAmount.text = last.amount
+        lastTransactionFee.text = last.fee
+        transactionAdapter.addAll(transactions.subList(1, transactions.size).toMutableList())
     }
 
 }
