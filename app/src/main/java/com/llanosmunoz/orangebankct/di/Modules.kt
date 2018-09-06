@@ -3,7 +3,12 @@ package com.llanosmunoz.orangebankct.di
 import android.content.Context
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
+import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.singleton
+import com.llanosmunoz.data.datasources.network.ApiService
+import com.llanosmunoz.data.datasources.network.NetworkDataSource
+import com.llanosmunoz.data.datasources.network.OrangeBankNetworkDataSource
+import com.llanosmunoz.data.datasources.network.createService
 import com.llanosmunoz.domain.executor.Executor
 import com.llanosmunoz.orangebankct.error.ErrorHandler
 import com.llanosmunoz.orangebankct.error.AndroidErrorHandler
@@ -23,5 +28,9 @@ val domainModule = Kodein.Module {
 }
 
 val dataModule = Kodein.Module {
-    // Add here data dependencies
+    /* DataSource */
+    bind<NetworkDataSource>() with singleton { OrangeBankNetworkDataSource(apiService = instance()) }
+
+    /* API Service */
+    bind<ApiService>() with singleton { createService<ApiService>(endPoint = ApiService.END_POINT) }
 }
