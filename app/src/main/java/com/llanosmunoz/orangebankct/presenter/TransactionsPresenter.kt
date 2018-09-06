@@ -1,8 +1,9 @@
 package com.llanosmunoz.orangebankct.presenter
 
 import com.llanosmunoz.domain.interactor.RetrieveTransactionsUseCase
-import com.llanosmunoz.domain.models.Transaction
 import com.llanosmunoz.orangebankct.error.ErrorHandler
+import com.llanosmunoz.orangebankct.mappers.toView
+import com.llanosmunoz.orangebankct.models.TransactionView
 
 
 /**
@@ -14,7 +15,13 @@ class TransactionsPresenter(private val retrieveTransactionsUseCase: RetrieveTra
     override fun initialize() {
         view.showProgress()
         retrieveTransactionsUseCase.execute(
-                onSuccess = { view.showTransactions(it); view.hideProgress() },
+                onSuccess = { transactions ->
+                    view.showTransactions(transactions
+                            .filter { it.date != null }
+                            .sortedByDescending { it.date }
+                            .map { it.toView() })
+                    view.hideProgress()
+                },
                 onError = onError { view.showError(it); view.hideProgress() }
         )
     }
@@ -28,10 +35,10 @@ class TransactionsPresenter(private val retrieveTransactionsUseCase: RetrieveTra
     }
 
     override fun destroy() {
-        // Nothing to do yet
+        retrieveTransactionsUseCase.clear()
     }
 
     interface View : Presenter.View {
-        fun showTransactions(transactions: List<Transaction>)
+        fun showTransactions(transactions: List<TransactionView>)
     }
 }

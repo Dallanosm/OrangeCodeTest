@@ -50,3 +50,5 @@ fun String.toDate(format: String): Date? {
         null
     }
 }
+
+fun Date.toFormattedString(format: String): String = SimpleDateFormat(format).format(this)

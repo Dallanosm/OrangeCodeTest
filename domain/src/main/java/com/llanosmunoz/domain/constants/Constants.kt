@@ -24,6 +24,7 @@ class Constants {
         }
 
         const val DATE_API_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        const val DATE_VIEW_FORMAT: String = "dd-MM-yyyy HH:mm:ss"
     }
 }
 
