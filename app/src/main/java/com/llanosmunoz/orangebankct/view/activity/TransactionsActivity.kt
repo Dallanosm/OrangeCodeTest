@@ -6,7 +6,10 @@ import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.provider
+import com.llanosmunoz.domain.constants.Constants.Companion.EMPTY_STRING
 import com.llanosmunoz.orangebankct.R
+import com.llanosmunoz.orangebankct.extension.hideMe
+import com.llanosmunoz.orangebankct.extension.showMe
 import com.llanosmunoz.orangebankct.models.TransactionView
 import com.llanosmunoz.orangebankct.presenter.TransactionsPresenter
 import com.llanosmunoz.orangebankct.view.adapter.TransactionsAdapter
@@ -45,13 +48,24 @@ class TransactionsActivity : RootActivity<TransactionsPresenter.View>(), Transac
     }
 
     override fun showTransactions(transactions: List<TransactionView>) {
+        emptyView.hideMe()
+        contentView.showMe()
         val last = transactions.first()
         lastTransactionId.text = last.id
         lastTransactionDate.text = last.date
-        lastTransactionDescription.text = last.description
+        if (last.description != EMPTY_STRING) {
+            lastTransactionDescription.showMe()
+            lastTransactionDescription.text = last.description
+        } else {
+            lastTransactionDescription.hideMe()
+        }
         lastTransactionAmount.text = last.amount
         lastTransactionFee.text = last.fee
         transactionAdapter.addAll(transactions.subList(1, transactions.size).toMutableList())
     }
 
+    override fun showEmptyView() {
+        contentView.hideMe()
+        emptyView.showMe()
+    }
 }

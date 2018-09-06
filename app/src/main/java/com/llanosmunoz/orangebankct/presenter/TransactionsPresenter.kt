@@ -16,10 +16,15 @@ class TransactionsPresenter(private val retrieveTransactionsUseCase: RetrieveTra
         view.showProgress()
         retrieveTransactionsUseCase.execute(
                 onSuccess = { transactions ->
-                    view.showTransactions(transactions
-                            .filter { it.date != null }
-                            .sortedByDescending { it.date }
-                            .map { it.toView() })
+                    if (transactions.isNotEmpty()) {
+                        view.showTransactions(transactions
+                                .filter { it.date != null }
+                                .sortedByDescending { it.date }
+                                .distinctBy { it.id }
+                                .map { it.toView() })
+                    } else {
+                        view.showEmptyView()
+                    }
                     view.hideProgress()
                 },
                 onError = onError { view.showError(it); view.hideProgress() }
@@ -40,5 +45,6 @@ class TransactionsPresenter(private val retrieveTransactionsUseCase: RetrieveTra
 
     interface View : Presenter.View {
         fun showTransactions(transactions: List<TransactionView>)
+        fun showEmptyView()
     }
 }

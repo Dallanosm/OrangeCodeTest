@@ -1,7 +1,10 @@
 package com.llanosmunoz.orangebankct.view.adapter
 
 import android.view.View
+import com.llanosmunoz.domain.constants.Constants
 import com.llanosmunoz.orangebankct.R
+import com.llanosmunoz.orangebankct.extension.hideMe
+import com.llanosmunoz.orangebankct.extension.showMe
 import com.llanosmunoz.orangebankct.models.TransactionView
 import kotlinx.android.synthetic.main.item_transaction.view.*
 
@@ -21,7 +24,13 @@ class TransactionsAdapter(onItemClickListener: (TransactionView) -> Unit)
             itemView.transactionDate.text = model.date
             itemView.transactionAmount.text = model.amount
             itemView.transactionFee.text = model.fee
-            itemView.transactionDescription.text = model.description
+
+            if (model.description != Constants.EMPTY_STRING) {
+                itemView.transactionDescription.showMe()
+                itemView.transactionDescription.text = model.description
+            }else{
+                itemView.transactionDescription.hideMe()
+            }
         }
     }
 }
