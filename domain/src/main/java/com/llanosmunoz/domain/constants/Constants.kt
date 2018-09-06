@@ -11,6 +11,8 @@ class Constants {
 
         val DEFAULT_INT: Int = 0
 
+        val DEFAULT_DOUBLE: Double = 0.0
+
         fun preferencesName(buildType: BuildType): String = when (buildType) {
             BuildType.DEBUG -> "orange_bank_ct_debug"
             BuildType.RELEASE -> "orange_bank_ct"

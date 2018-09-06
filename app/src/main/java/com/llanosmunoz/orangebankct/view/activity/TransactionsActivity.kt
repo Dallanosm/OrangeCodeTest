@@ -5,6 +5,7 @@ import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.provider
+import com.llanosmunoz.domain.models.Transaction
 import com.llanosmunoz.orangebankct.R
 import com.llanosmunoz.orangebankct.presenter.TransactionsPresenter
 import kotlinx.android.synthetic.main.activity_transactions.*
@@ -22,7 +23,9 @@ class TransactionsActivity : RootActivity<TransactionsPresenter.View>(), Transac
 
     override val activityModule: Kodein.Module = Kodein.Module {
         bind<TransactionsPresenter>() with provider {
-            TransactionsPresenter(view = this@TransactionsActivity,
+            TransactionsPresenter(
+                    retrieveTransactionsUseCase = instance(),
+                    view = this@TransactionsActivity,
                     errorHandler = instance())
         }
     }
@@ -35,5 +38,8 @@ class TransactionsActivity : RootActivity<TransactionsPresenter.View>(), Transac
         // Nothing to do yet
     }
 
+    override fun showTransactions(transactions: List<Transaction>) {
+        // Nothing to do yet
+    }
 
 }
